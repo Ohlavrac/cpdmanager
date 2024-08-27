@@ -4,5 +4,6 @@ public enum EquipamentTypeEnum {
     COMPUTER,
     PCPART,
     CABLE,
-    PRINTER
+    PRINTER,
+    UNDEFINED
 }
