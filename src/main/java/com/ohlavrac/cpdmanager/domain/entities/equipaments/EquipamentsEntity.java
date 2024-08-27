@@ -3,13 +3,15 @@ package com.ohlavrac.cpdmanager.domain.entities.equipaments;
 import java.util.Date;
 import java.util.UUID;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.ohlavrac.cpdmanager.domain.enums.EquipamentTypeEnum;
 import com.ohlavrac.cpdmanager.domain.enums.StatusEnum;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -33,12 +35,15 @@ public class EquipamentsEntity {
     private String description;
     private String issue;
 
+    @Enumerated(EnumType.STRING)
     private EquipamentTypeEnum equipamenttype;
+
+    @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
-    @CreatedDate
+    @CreationTimestamp
     private Date created_at;
 
-    @LastModifiedDate
+    @UpdateTimestamp
     private Date updated_at;
 }
