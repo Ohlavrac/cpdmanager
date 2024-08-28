@@ -1,6 +1,7 @@
 package com.ohlavrac.cpdmanager.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentResponseDTO
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentsEntity;
 import com.ohlavrac.cpdmanager.services.EquipamentService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RestController
@@ -34,6 +37,12 @@ public class EquipamentController {
     @GetMapping("/all")
     public ResponseEntity<List<EquipamentResponseDTO>> getAllEquipaments () {
         return ResponseEntity.ok(this.equipamentService.getAllEquipaments());
+    }
+
+    @GetMapping("/{equipamentID}")
+    public ResponseEntity<EquipamentResponseDTO> getMethodName(@PathVariable UUID equipamentID) {
+        System.out.println(">>>>>" + this.equipamentService.getEquipamentById(equipamentID));
+        return ResponseEntity.ok(this.equipamentService.getEquipamentById(equipamentID));
     }
     
 }

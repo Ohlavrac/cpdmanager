@@ -1,6 +1,7 @@
 package com.ohlavrac.cpdmanager.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,11 @@ public class EquipamentService {
         List<EquipamentsEntity> equipamentsEntity = this.repository.findAll();
 
         return equipamentsEntity.stream().map(equipament -> new EquipamentResponseDTO(equipament.getId(), equipament.getName(), equipament.getDescription(), equipament.getIssue(), equipament.getEquipamenttype(), equipament.getStatus(), equipament.getCreated_at(), equipament.getUpdated_at())).toList();
+    }
+
+    public EquipamentResponseDTO getEquipamentById(UUID equipamentID) {
+        EquipamentsEntity equipamentsEntity = this.repository.findById(equipamentID).orElseThrow(() -> new IllegalArgumentException("Equipament not find"));
+
+        return new EquipamentResponseDTO(equipamentsEntity.getId(), equipamentsEntity.getName(), equipamentsEntity.getDescription(), equipamentsEntity.getIssue(), equipamentsEntity.getEquipamenttype(), equipamentsEntity.getStatus(), equipamentsEntity.getCreated_at(), equipamentsEntity.getUpdated_at());
     }
 }
