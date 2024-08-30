@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentRequestDTO;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentResponseDTO;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentsEntity;
+import com.ohlavrac.cpdmanager.domain.enums.EquipamentTypeEnum;
 import com.ohlavrac.cpdmanager.repositories.EquipamentRepository;
 
 @Service
@@ -44,5 +45,17 @@ public class EquipamentService {
         EquipamentsEntity equipamentsEntity = this.repository.findById(equipamentID).orElseThrow(() -> new IllegalArgumentException("Equipament not find"));
 
         return new EquipamentResponseDTO(equipamentsEntity.getId(), equipamentsEntity.getName(), equipamentsEntity.getDescription(), equipamentsEntity.getIssue(), equipamentsEntity.getEquipamenttype(), equipamentsEntity.getStatus(), equipamentsEntity.getCreated_at(), equipamentsEntity.getUpdated_at());
+    }
+
+    public Void deleteEquipamentById(UUID equipamentID) {
+        this.repository.deleteById(equipamentID);
+
+        return null;
+    }
+
+    public List<EquipamentResponseDTO> findEquipamentByType(EquipamentTypeEnum equipamentType) {
+        List<EquipamentsEntity> equipamentsEntities = this.repository.findEquipamentByType(equipamentType);
+
+        return equipamentsEntities.stream().map(equipament -> new EquipamentResponseDTO(equipament.getId(), equipament.getName(), equipament.getDescription(), equipament.getIssue(), equipament.getEquipamenttype(), equipament.getStatus(), equipament.getCreated_at(), equipament.getUpdated_at())).toList();
     }
 }
