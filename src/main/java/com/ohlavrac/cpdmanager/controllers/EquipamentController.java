@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentRequestDTO;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentResponseDTO;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentsEntity;
+import com.ohlavrac.cpdmanager.domain.enums.EquipamentTypeEnum;
 import com.ohlavrac.cpdmanager.services.EquipamentService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -41,8 +45,19 @@ public class EquipamentController {
 
     @GetMapping("/{equipamentID}")
     public ResponseEntity<EquipamentResponseDTO> getMethodName(@PathVariable UUID equipamentID) {
-        System.out.println(">>>>>" + this.equipamentService.getEquipamentById(equipamentID));
         return ResponseEntity.ok(this.equipamentService.getEquipamentById(equipamentID));
+    }
+
+    @DeleteMapping("/{equipamentID}")
+    public ResponseEntity<Void> deleteEquipament(@PathVariable UUID equipamentID) {
+        this.equipamentService.deleteEquipamentById(equipamentID);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/type/{equipamentType}")
+    public ResponseEntity<List<EquipamentResponseDTO>> getMethodName(@PathVariable EquipamentTypeEnum equipamentType) {
+        System.out.println(">>>>>>>>>>> "+ equipamentType);
+        return ResponseEntity.ok(this.equipamentService.findEquipamentByType(equipamentType));
     }
     
 }
