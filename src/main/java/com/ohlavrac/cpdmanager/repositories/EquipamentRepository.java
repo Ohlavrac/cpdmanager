@@ -17,6 +17,6 @@ public interface EquipamentRepository extends JpaRepository<EquipamentsEntity, U
     @Query("SELECT e FROM EquipamentsEntity e WHERE e.equipamenttype=?1")
     List<EquipamentsEntity> findEquipamentByType(EquipamentTypeEnum equipamenttype);
 
-    @Query("SELECT e FROM EquipamentsEntity e WHERE e.staus=?1")
+    @Query("SELECT e FROM EquipamentsEntity e WHERE e.status=?1")
     List<EquipamentsEntity> findEquipamentByStatus(StatusEnum status);
 }
