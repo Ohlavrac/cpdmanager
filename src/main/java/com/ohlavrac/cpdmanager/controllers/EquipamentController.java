@@ -14,6 +14,7 @@ import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentRequestDTO;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentResponseDTO;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentsEntity;
 import com.ohlavrac.cpdmanager.domain.enums.EquipamentTypeEnum;
+import com.ohlavrac.cpdmanager.domain.enums.StatusEnum;
 import com.ohlavrac.cpdmanager.services.EquipamentService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,4 +61,8 @@ public class EquipamentController {
         return ResponseEntity.ok(this.equipamentService.findEquipamentByType(equipamentType));
     }
     
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<EquipamentResponseDTO>> getEquipamentByStatus(@PathVariable StatusEnum status) {
+        return ResponseEntity.ok(this.equipamentService.findEquipamentByStatus(status));
+    }
 }

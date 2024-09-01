@@ -10,6 +10,7 @@ import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentRequestDTO;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentResponseDTO;
 import com.ohlavrac.cpdmanager.domain.entities.equipaments.EquipamentsEntity;
 import com.ohlavrac.cpdmanager.domain.enums.EquipamentTypeEnum;
+import com.ohlavrac.cpdmanager.domain.enums.StatusEnum;
 import com.ohlavrac.cpdmanager.repositories.EquipamentRepository;
 
 @Service
@@ -55,6 +56,12 @@ public class EquipamentService {
 
     public List<EquipamentResponseDTO> findEquipamentByType(EquipamentTypeEnum equipamentType) {
         List<EquipamentsEntity> equipamentsEntities = this.repository.findEquipamentByType(equipamentType);
+
+        return equipamentsEntities.stream().map(equipament -> new EquipamentResponseDTO(equipament.getId(), equipament.getName(), equipament.getDescription(), equipament.getIssue(), equipament.getEquipamenttype(), equipament.getStatus(), equipament.getCreated_at(), equipament.getUpdated_at())).toList();
+    }
+
+    public List<EquipamentResponseDTO> findEquipamentByStatus(StatusEnum status) {
+        List<EquipamentsEntity> equipamentsEntities = this.repository.findEquipamentByStatus(status);
 
         return equipamentsEntities.stream().map(equipament -> new EquipamentResponseDTO(equipament.getId(), equipament.getName(), equipament.getDescription(), equipament.getIssue(), equipament.getEquipamenttype(), equipament.getStatus(), equipament.getCreated_at(), equipament.getUpdated_at())).toList();
     }
