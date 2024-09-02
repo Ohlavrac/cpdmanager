@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,7 @@ public class EquipamentController {
         EquipamentRequestDTO equipamentRequestDTO = new EquipamentRequestDTO(equipament.getName(), equipament.getDescription(), equipament.getIssue(), equipament.getEquipamenttype(), equipament.getStatus(), equipament.getCreated_at(), equipament.getUpdated_at());
 
         EquipamentsEntity newEquipament = this.equipamentService.createEquipament(equipamentRequestDTO);
-        return ResponseEntity.ok(newEquipament);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(newEquipament);
     }
 
     @GetMapping("/all")
@@ -57,7 +58,6 @@ public class EquipamentController {
 
     @GetMapping("/type/{equipamentType}")
     public ResponseEntity<List<EquipamentResponseDTO>> getMethodName(@PathVariable EquipamentTypeEnum equipamentType) {
-        System.out.println(">>>>>>>>>>> "+ equipamentType);
         return ResponseEntity.ok(this.equipamentService.findEquipamentByType(equipamentType));
     }
     
